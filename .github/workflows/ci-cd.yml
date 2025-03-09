@@ -45,7 +45,7 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            cd /home/ubuntu/app
+            cd /home/ubuntu/Python-Action
             git pull origin main
             pip install -r requirements.txt  # Ensure dependencies are installed
             sudo systemctl restart myapp.service  # Restart the app service if needed
