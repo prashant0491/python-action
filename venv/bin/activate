@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Set virtual environment path
+VIRTUAL_ENV="/home/ubuntu/venv"
+export VIRTUAL_ENV
+
+# Prepend virtual environment bin directory to PATH
+PATH="$VIRTUAL_ENV/bin:$PATH"
+export PATH
+
+# Modify shell prompt
+PS1="(`basename \"$VIRTUAL_ENV\"`) $PS1"
+export PS1
+
+# Function to deactivate the virtual environment
+deactivate () {
+    if [ -n "$VIRTUAL_ENV" ]; then
+        PATH=${PATH#"$VIRTUAL_ENV/bin:"}
+        unset VIRTUAL_ENV
+        unset PS1
+        unset deactivate
+    fi
+}
