@@ -28,10 +28,12 @@ jobs:
     - name: Run Tests
       run: |
         pytest test_app.py
-deploy:
-    needs: test
+
+  deploy:
+    needs: build
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -45,4 +47,5 @@ deploy:
           script: |
             cd /home/ubuntu/app
             git pull origin main
-            python3 app.py
+            pip install -r requirements.txt  # Ensure dependencies are installed
+            sudo systemctl restart myapp.service  # Restart the app service if needed
