@@ -49,24 +49,24 @@ jobs:
 
             # Ensure git repo is up-to-date
             git pull origin main
-            
-             # Install python3-venv if not installed
+
+# Install python3-venv if not installed
             if ! dpkg -s python3-venv >/dev/null 2>&1; then
-            echo "Installing python3-venv..."
-            sudo apt update && sudo apt install -y python3-venv
-            fi
-            # Create a virtual environment if it doesn't exist
-            if [ ! -d "venv" ]; then
-            python3 -m venv venv
+              echo "Installing python3-venv..."
+              sudo apt update && sudo apt install -y python3-venv
             fi
 
-            # Activate virtual environment
+# Ensure virtual environment exists
+            if [ ! -d "venv" ]; then
+            python3 -m venv venv --clear
+            fi
+
+# Activate virtual environment
             source venv/bin/activate
 
-            # Install dependencies inside the virtual environment
-            pip install -r requirements.txt
+# Upgrade pip and install dependencies
+            python3 -m pip install --upgrade pip
+            python3 -m pip install -r requirements.txt
 
-            # Deactivate the virtual environment
-            deactivate
-
-
+# Deactivate the virtual environment
+           deactivate
